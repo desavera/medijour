@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Photoi.iml" filepath="$PROJECT_DIR$/Photoi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/photoiapi-android-23.default-values/photoiapi-android-23.default-values.iml" filepath="$PROJECT_DIR$/photoiapi-android-23.default-values/photoiapi-android-23.default-values.iml" />
+    </modules>
+  </component>
+</project>

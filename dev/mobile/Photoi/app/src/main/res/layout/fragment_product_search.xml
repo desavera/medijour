@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.acompany.photoi.ProductSearchActivityFragment"
+    tools:showIn="@layout/activity_product_search">
+
+    <TextView
+        android:id="@+id/id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:textAppearance="?attr/textAppearanceListItem" />
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:textSize="@dimen/text_size"
+        android:textAppearance="?attr/textAppearanceListItem" />
+
+    <Button
+        android:id="@+id/buy"
+        android:layout_height="wrap_content"
+        android:layout_width="0dip"
+        android:layout_weight="15"
+        android:text="@string/buy"
+        android:background="@color/buyBlue"
+        android:textSize="@dimen/text_size"
+        android:onClick="paymentRequestAction" />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_height="wrap_content"
+        android:layout_width="0dip"
+        android:layout_weight="15"
+        android:text="@string/cancel"
+        android:background="@color/cancelRed"
+        android:textSize="@dimen/text_size"
+        android:onClick="paymentCancelAction" />
+
+</LinearLayout>
