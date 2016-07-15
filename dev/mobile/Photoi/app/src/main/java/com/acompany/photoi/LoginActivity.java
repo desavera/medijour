@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            // starts the product search activity
+            // starts back the login activity
             Intent loginIntent = new Intent(context, LoginActivity.class);
             startActivity(loginIntent);
         }

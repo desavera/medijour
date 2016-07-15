@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">MJReader</string>
     <string name="action_settings">Settings</string>
-    <string name="Auth0DomainID">desavera.auth0.com</string>
-    <string name="Auth0ClientID">medjourapp</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="signin">Sign In</string>
+    <string name="welcome_content">Welcome to MJReader</string>
 </resources>
