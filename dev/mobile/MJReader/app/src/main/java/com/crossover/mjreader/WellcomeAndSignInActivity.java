@@ -25,7 +25,7 @@ import com.auth0.android.lock.utils.LockException;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class WellcomeActivity extends AppCompatActivity {
+public class WellcomeAndSignInActivity extends AppCompatActivity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -130,9 +130,9 @@ public class WellcomeActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            broadcastManager = LocalBroadcastManager.getInstance(WellcomeActivity.this);
+            broadcastManager = LocalBroadcastManager.getInstance(WellcomeAndSignInActivity.this);
             broadcastManager.registerReceiver(authenticationReceiver, new IntentFilter("com.auth0.android.lock.action.Authentication"));
-            startActivity(WellcomeActivity.this.lock.newIntent(WellcomeActivity.this));
+            startActivity(WellcomeAndSignInActivity.this.lock.newIntent(WellcomeAndSignInActivity.this));
         }
     };
 
