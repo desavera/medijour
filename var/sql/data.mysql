@@ -1,5 +1,5 @@
 USE medijourdb;
 
-insert into publisher values (1,"john","john@gmail.com",1234);
-insert into journals values (1,"article.pdf",1,"This is a first article",1);
+insert into publisher values ("john","john@gmail.com",1234);
+insert into journals values ("article.pdf",1,"This is a first article",1);
 

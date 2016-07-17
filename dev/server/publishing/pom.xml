@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.crossover.airts</groupId>
-	<artifactId>subscription</artifactId>
+	<groupId>com.crossover.medijour</groupId>
+	<artifactId>publishing</artifactId>
 	<version>1.0.0</version>
 	<packaging>war</packaging>	
 	<parent>
@@ -15,7 +15,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.crossover.medijour</groupId>
-			<artifactId>sdk</artifactId>
+			<artifactId>medijoursdk</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
@@ -27,6 +27,20 @@
             <artifactId>spring-boot-starter-tomcat</artifactId>  
         	<scope>provided</scope>
         </dependency>
+      <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -52,7 +66,7 @@
 	</properties>
 
 	<build>
-		<finalName>subscription</finalName>
+		<finalName>publishing</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
@@ -63,9 +77,9 @@
 					<path>/</path>
 					<additionalConfigFilesDir>${basedir}/src/main/tomcat/conf</additionalConfigFilesDir>
 					<systemProperties>
-						<RDS_JDBC_URL>jdbc:mysql://airtsdev.ctf7sff49tru.us-west-2.rds.amazonaws.com:3306/airtsdev</RDS_JDBC_URL>
-      					<RDS_USERNAME>airtsuser</RDS_USERNAME>
-      					<RDS_PASSWORD>airts123</RDS_PASSWORD>
+						<RDS_JDBC_URL>jdbc:mysql://localhost:3306/medijourdb</RDS_JDBC_URL>
+      					<RDS_USERNAME>medijour</RDS_USERNAME>
+      					<RDS_PASSWORD>medijour123</RDS_PASSWORD>
       					<RDS_MAX_IDLE>1</RDS_MAX_IDLE>
       					<RDS_MAX_ACTIVE>1</RDS_MAX_ACTIVE>
     				</systemProperties>

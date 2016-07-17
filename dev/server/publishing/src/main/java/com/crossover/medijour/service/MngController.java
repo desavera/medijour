@@ -25,34 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class MngController {
 	
     @Autowired
-    private JournalsRepository ContentRepo;
+    private JournalsRepository journalsRepo;
     
 	final Logger logger = Logger.getLogger(MngController.class); 
 
     
-    @RequestMapping(value="/sub" , method=RequestMethod.POST,
-		    		consumes = {MediaType.APPLICATION_JSON_VALUE},
-		    		produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Journals> findContentsByQueryParam(
-    		final @RequestParam(defaultValue = "0", required = false) int page,
-     	    final @RequestParam(defaultValue = "10", required = false) int pageSize,
-     	    @RequestBody ContentQuery query) {
-    	
-		logger.debug("Quering Contents for : " + '\n' + query);
-
-		Pageable pager = new PageRequest(page, pageSize);
-
-
-		//List<Content> matchList = ContentRepo.findByQueryParam(origin, destiny, query.getSeats(),queryDeparture,queryReturning,pager);			
-
-		List<Journals> matchList = new Vector();
-		return matchList;
-
-    }    
-
     @RequestMapping(value="/sub/{Content_id}", method=RequestMethod.PUT)
     public Journals updateContent(@RequestBody Journals Content) {    	
-    	Journals entity = ContentRepo.findById(Content.getId());
+    	Journals entity = journalsRepo.findById(Content.getId());
     	
     	entity.update(Content);
     		
@@ -66,7 +46,7 @@ public class MngController {
     		final @RequestParam(defaultValue = "0", required = false) int page,
      	    final @RequestParam(defaultValue = "10", required = false) int pageSize) {
     	Pageable pager = new PageRequest(page, pageSize);
-    	Page<Journals> entities = ContentRepo.findAll(pager);
+    	Page<Journals> entities = journalsRepo.findAll(pager);
         return entities;
     }
 }

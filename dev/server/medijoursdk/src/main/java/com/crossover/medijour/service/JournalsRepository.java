@@ -15,16 +15,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface JournalsRepository extends JpaRepository<Journals, Integer> {
 	Journals findById(Integer id);
-	Page<Journals> findAll(Pageable pager);
-		              
-	//
-	@Query("SELECT s FROM Schedule s WHERE (s.origin.id=:#{#origin.id} OR s.origin.id=:#{#destiny.id}) AND (s.numOfSeats > :#{#nseats}) AND (s.departureTime between :#{#departureTime} and :#{#returnTime})")	
-	List<Journals> findByQueryParam(	@Param("nseats") Integer nseats,
-									@Param("departureTime") Date departureTime,
-									@Param("returnTime") Date returnTime,											
-									Pageable pager);
-	
-
-	
-
+	Page<Journals> findAll(Pageable pager);		              
 }

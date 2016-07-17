@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.crossover.medijour</groupId>
-	<artifactId>sdk</artifactId>
+	<artifactId>medijoursdk</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>	
 	<parent>
@@ -46,7 +46,7 @@
 	</properties>
 
 	<build>
-		<finalName>airtssdk</finalName>
+		<finalName>medijoursdk</finalName>
 		<plugins>			
 		</plugins>
 	</build>

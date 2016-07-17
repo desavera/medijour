@@ -1,72 +1,103 @@
 package com.crossover.medijour.service;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Vector;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-import org.apache.log4j.Logger;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.MediaType;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
-@RestController
+@Controller
 public class UploadController {
+
+	private static final Logger log = LoggerFactory.getLogger(UploadController.class);
+
+	public static final String ROOT = "upload-dir";
+
+	private final ResourceLoader resourceLoader;
 	
-    @Autowired
-    private JournalsRepository ContentRepo;
+	@Autowired
+    private JournalsRepository journalsRepo;
     
-	final Logger logger = Logger.getLogger(UploadController.class); 
 
-    
-    @RequestMapping(value="/read" , method=RequestMethod.POST,
-		    		consumes = {MediaType.APPLICATION_JSON_VALUE},
-		    		produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Journals> findContentsByQueryParam(
-    		final @RequestParam(defaultValue = "0", required = false) int page,
-     	    final @RequestParam(defaultValue = "10", required = false) int pageSize,
-     	    @RequestBody ContentQuery query) {
-    	
-		logger.debug("Quering Contents for : " + '\n' + query);
+	@Autowired
+	public UploadController(ResourceLoader resourceLoader) {
+		this.resourceLoader = resourceLoader;
+	}
 
-		Pageable pager = new PageRequest(page, pageSize);
+	@RequestMapping(method = RequestMethod.GET, value = "/")
+	public String provideUploadInfo(Model model) throws IOException {
 
+		model.addAttribute("files", Files.walk(Paths.get(ROOT))
+				.filter(path -> !path.equals(Paths.get(ROOT)))
+				.map(path -> Paths.get(ROOT).relativize(path))
+				.map(path -> linkTo(methodOn(UploadController.class).getFile(path.toString())).withRel(path.toString()))
+				.collect(Collectors.toList()));
 
-		//List<Content> matchList = ContentRepo.findByQueryParam(origin, destiny, query.getSeats(),queryDeparture,queryReturning,pager);			
+		return "uploadForm";
+	}
 
-		List<Journals> matchList = new Vector();
-		return matchList;
+	@RequestMapping(method = RequestMethod.GET, value = "/{filename:.+}")
+	@ResponseBody
+	public ResponseEntity<?> getFile(@PathVariable String filename) {
 
-    }    
+		try {
+			return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(ROOT, filename).toString()));
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
 
-    @RequestMapping(value="/fsearch/{Content_id}", method=RequestMethod.PUT)
-    public Journals updateContent(@RequestBody Journals Content) {    	
-    	Journals entity = ContentRepo.findById(Content.getId());
-    	
-    	entity.update(Content);
-    		
-    	
-        return entity;
-    }       
-    
-    
-    @RequestMapping("/fsearch")
-    public Page<Journals> findAllContents(
-    		final @RequestParam(defaultValue = "0", required = false) int page,
-     	    final @RequestParam(defaultValue = "10", required = false) int pageSize) {
-    	Pageable pager = new PageRequest(page, pageSize);
-    	Page<Journals> entities = ContentRepo.findAll(pager);
-        return entities;
-    }
+	@RequestMapping(method = RequestMethod.POST, value = "/")
+	public String handleFileUpload(@RequestParam("file") MultipartFile file,
+								   RedirectAttributes redirectAttributes) {
+
+		if (!file.isEmpty()) {
+			try {
+				
+				Files.copy(file.getInputStream(), Paths.get(ROOT, file.getOriginalFilename()));
+				
+				/*
+				 * persists the upload registry to journals table
+				 */
+				Journals entity = new Journals();
+				entity.setAvailable(true);
+				entity.setDataPath(Paths.get(ROOT, file.getOriginalFilename()).toString());
+				entity.setHeader("blabalbal");
+				entity.setPubId(1);
+				
+				journalsRepo.save(entity);
+				
+				/*
+				 * feedback to publisher
+				 */
+				redirectAttributes.addFlashAttribute("message",
+						"You successfully uploaded " + file.getOriginalFilename() + "!");
+			} catch (IOException|RuntimeException e) {
+				redirectAttributes.addFlashAttribute("message", "Failued to upload " + file.getOriginalFilename() + " => " + e.getMessage());
+			}
+		} else {
+			redirectAttributes.addFlashAttribute("message", "Failed to upload " + file.getOriginalFilename() + " because it was empty");
+		}
+
+		return "redirect:/";
+	}
+
 }

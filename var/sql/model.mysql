@@ -7,24 +7,24 @@ USE medijourdb;
 # Create tables
 CREATE TABLE IF NOT EXISTS publisher
 (
-    id BIGINT NOT NULL,
+    id BIGINT NOT NULL AUTO_INCREMENT,
     name CHARACTER(255),
     email CHARACTER(50),
     provider_unique CHARACTER(255) NOT NULL,
-    PRIMARY KEY(id, provider_unique)
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE IF NOT EXISTS subscriber
 (
-    id BIGINT NOT NULL,
+    id BIGINT NOT NULL AUTO_INCREMENT,
     name CHARACTER(255),
     provider_unique CHARACTER(255) NOT NULL,
-    PRIMARY KEY(id, provider_unique)
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE IF NOT EXISTS journals
 (
-    id BIGINT NOT NULL,
+    id BIGINT NOT NULL AUTO_INCREMENT,
     data_path CHARACTER(50),
     available TINYINT(1),
     header VARCHAR(1000),
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS journals
 
 CREATE TABLE IF NOT EXISTS subscription
 (
-    id BIGINT NOT NULL,
+    id BIGINT NOT NULL AUTO_INCREMENT,
     jrnid BIGINT,
     subid BIGINT,
     PRIMARY KEY(id)
