@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.acompany.photoi.test.APIGatewayServiceTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.712 sec - in com.acompany.photoi.test.APIGatewayServiceTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.53 sec - in com.acompany.photoi.test.APIGatewayServiceTest

@@ -32,7 +32,7 @@ import org.springframework.web.context.WebApplicationContext;
 public class ListingServiceTest {
 
 	
-	final String uri = "http://localhost:8080/list";
+	final String uri = "http://localhost:8081/listing";
 	final Logger logger = Logger.getLogger(ListingServiceTest.class);
 
 	@Bean

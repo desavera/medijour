@@ -63,9 +63,9 @@
 					<path>/</path>
 					<additionalConfigFilesDir>${basedir}/src/main/tomcat/conf</additionalConfigFilesDir>
 					<systemProperties>
-						<RDS_JDBC_URL>jdbc:mysql://airtsdev.ctf7sff49tru.us-west-2.rds.amazonaws.com:3306/airtsdev</RDS_JDBC_URL>
-      					<RDS_USERNAME>airtsuser</RDS_USERNAME>
-      					<RDS_PASSWORD>airts123</RDS_PASSWORD>
+						<RDS_JDBC_URL>jdbc:mysql://localhost:3306/medijourdb</RDS_JDBC_URL>
+      					<RDS_USERNAME>medijouruser</RDS_USERNAME>
+      					<RDS_PASSWORD>medijour123</RDS_PASSWORD>
       					<RDS_MAX_IDLE>1</RDS_MAX_IDLE>
       					<RDS_MAX_ACTIVE>1</RDS_MAX_ACTIVE>
     				</systemProperties>

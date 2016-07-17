@@ -25,9 +25,9 @@
             var lock = new Auth0Lock('${clientId}', '${domain}');
 
 	    // customize with own logo/badge
-	    lock.show({
-  	        icon: '/icons/medijour.png'
-	    });
+	    //lock.show({
+  	     ////   icon: '/icons/medijour.png'
+	    //});
 
             lock.showSignin({
                 authParams: {

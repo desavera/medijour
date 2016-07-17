@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MngController {
 	
     @Autowired
-    private ContentRepository ContentRepo;
+    private JournalsRepository ContentRepo;
     
 	final Logger logger = Logger.getLogger(MngController.class); 
 
@@ -33,7 +33,7 @@ public class MngController {
     @RequestMapping(value="/sub" , method=RequestMethod.POST,
 		    		consumes = {MediaType.APPLICATION_JSON_VALUE},
 		    		produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Content> findContentsByQueryParam(
+    public List<Journals> findContentsByQueryParam(
     		final @RequestParam(defaultValue = "0", required = false) int page,
      	    final @RequestParam(defaultValue = "10", required = false) int pageSize,
      	    @RequestBody ContentQuery query) {
@@ -45,14 +45,14 @@ public class MngController {
 
 		//List<Content> matchList = ContentRepo.findByQueryParam(origin, destiny, query.getSeats(),queryDeparture,queryReturning,pager);			
 
-		List<Content> matchList = new Vector();
+		List<Journals> matchList = new Vector();
 		return matchList;
 
     }    
 
     @RequestMapping(value="/sub/{Content_id}", method=RequestMethod.PUT)
-    public Content updateContent(@RequestBody Content Content) {    	
-    	Content entity = ContentRepo.findById(Content.getId());
+    public Journals updateContent(@RequestBody Journals Content) {    	
+    	Journals entity = ContentRepo.findById(Content.getId());
     	
     	entity.update(Content);
     		
@@ -62,11 +62,11 @@ public class MngController {
     
     
     @RequestMapping("sub")
-    public Page<Content> findAllContents(
+    public Page<Journals> findAllContents(
     		final @RequestParam(defaultValue = "0", required = false) int page,
      	    final @RequestParam(defaultValue = "10", required = false) int pageSize) {
     	Pageable pager = new PageRequest(page, pageSize);
-    	Page<Content> entities = ContentRepo.findAll(pager);
+    	Page<Journals> entities = ContentRepo.findAll(pager);
         return entities;
     }
 }

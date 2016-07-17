@@ -1,0 +1,60 @@
+# Create schemas
+
+DROP DATABASE medijourdb;
+CREATE DATABASE medijourdb;
+USE medijourdb;
+
+# Create tables
+CREATE TABLE IF NOT EXISTS publisher
+(
+    id BIGINT NOT NULL,
+    name CHARACTER(255),
+    email CHARACTER(50),
+    provider_unique CHARACTER(255) NOT NULL,
+    PRIMARY KEY(id, provider_unique)
+);
+
+CREATE TABLE IF NOT EXISTS subscriber
+(
+    id BIGINT NOT NULL,
+    name CHARACTER(255),
+    provider_unique CHARACTER(255) NOT NULL,
+    PRIMARY KEY(id, provider_unique)
+);
+
+CREATE TABLE IF NOT EXISTS journals
+(
+    id BIGINT NOT NULL,
+    data_path CHARACTER(50),
+    available TINYINT(1),
+    header VARCHAR(1000),
+    pubid BIGINT,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE IF NOT EXISTS subscription
+(
+    id BIGINT NOT NULL,
+    jrnid BIGINT,
+    subid BIGINT,
+    PRIMARY KEY(id)
+);
+
+
+# Create FKs
+ALTER TABLE journals
+    ADD    FOREIGN KEY (pubid)
+    REFERENCES publisher(id)
+;
+    
+ALTER TABLE subscription
+    ADD    FOREIGN KEY (jrnid)
+    REFERENCES journals(id)
+;
+    
+ALTER TABLE subscription
+    ADD    FOREIGN KEY (subid)
+    REFERENCES subscriber(id)
+;
+    
+
