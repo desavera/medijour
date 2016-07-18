@@ -1,0 +1,102 @@
+<html>  
+  <head>    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>  
+    <link id="mainStyle" href="assets/css/style.css" rel="stylesheet" />
+    <title>MediJour</title>    
+    <script type="text/javascript">  
+            var app = angular.module("JournalsListingManager", []);  
+           
+            //Controller Part  
+            app.controller("JournalsListingController", function($scope, $http) {  
+           
+                 
+                $scope.selectedPublications = [];  
+                $scope.publications = [];  
+
+		_fillPublicationsData();
+
+                $scope.submitPublicationsUpdate = function() {  
+           
+                    var method = "POST";
+                    var url = 'http://localhost:8080/mng';
+                    if ($scope.selectedPublications.length > 0) {                          
+                    
+                   	 $http({  
+                       	 method : method,  
+                      	  url : url,  
+                       	 data : angular.toJson($scope.selectedPublications),  
+                       	 headers : {  
+                       	     'Content-Type' : 'application/json'  
+                       	 }  
+                   	 }).then( _success, _error );  
+		    }
+                };  
+
+		// WE ARE ONLY SUPPORTING SINGLE LEG
+                $scope.update = function(journals) {
+
+			$scope.selectedPublications.push(journals.id);
+			
+                };  
+   
+                function _fillPublicationsData() {  
+
+			$http({
+			    method: 'GET',
+			    url: '/listing',
+			    headers: {
+                            'Accept': 'application/json' 
+                            }
+  			  }).then(function successCallback(response) {  
+
+			angular.forEach(response.data.content, function(journals) {
+
+                        	$scope.publications.push(journals);
+			});
+
+                    }, function errorCallback(response) {  
+                        console.log(response.statusText);  
+                    });  
+                }  
+
+		//
+		// PRIVATE METHODS
+		//
+                function _success(response) {  
+                }  
+           
+                function _error(response) {  
+                    console.log(response.statusText);  
+                }  
+           
+            });  
+
+        </script>  
+    </head>  
+    <body ng-app="JournalsListingManager" ng-controller="JournalsListingController">  
+         <h1>  
+           MediJour - Medical Journals   
+        </h1>   
+        <form ng-submit="submitPublicationsUpdate()">  
+        <table>  
+            <tr>                  
+                <th>Header</th>  
+                <th>Available</th>  
+                <th>Update Availability</th>  
+            </tr>  
+   
+           <tr ng-repeat="journals in publications">  
+                 
+    		<td>{{ journals.header }}</td>  
+    		<td>{{ journals.available }}</td>  
+                   
+		<td><input type="checkbox" ng-model="checkboxModel.value2" ng-click="update(journals)"></td>
+           </tr>  
+	    <tr>
+                <td colspan="2"><input type="submit" value="Submit Changes" class="blue-button" /></td>
+           </tr>
+        </table>  
+	</form>
+  </body>  
+</html> 

@@ -42,7 +42,7 @@ public class UploadController {
 		this.resourceLoader = resourceLoader;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/")
+/*	@RequestMapping(method = RequestMethod.GET, value = "/")
 	public String provideUploadInfo(Model model) throws IOException {
 
 		model.addAttribute("files", Files.walk(Paths.get(ROOT))
@@ -64,7 +64,7 @@ public class UploadController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-
+*/
 	@RequestMapping(method = RequestMethod.POST, value = "/")
 	public String handleFileUpload(@RequestParam("file") MultipartFile file,
 								   RedirectAttributes redirectAttributes) {
@@ -77,13 +77,13 @@ public class UploadController {
 				/*
 				 * persists the upload registry to journals table
 				 */
-				Journals entity = new Journals();
+				/*Journals entity = new Journals();
 				entity.setAvailable(true);
-				entity.setDataPath(Paths.get(ROOT, file.getOriginalFilename()).toString());
+				entity.setPath(Paths.get(ROOT, file.getOriginalFilename()).toString());
 				entity.setHeader("blabalbal");
 				entity.setPubId(1);
 				
-				journalsRepo.save(entity);
+				journalsRepo.save(entity);*/
 				
 				/*
 				 * feedback to publisher

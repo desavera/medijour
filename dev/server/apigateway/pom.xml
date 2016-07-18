@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.acompany.photoi</groupId>
+	<groupId>com.crossover.medijour</groupId>
 	<artifactId>apigateway</artifactId>
 	<version>1.0.0</version>
 	<packaging>war</packaging>	
@@ -35,6 +35,15 @@
 			<artifactId>spring-cloud-starter-zuul</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+		</dependency>
+		
+		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
@@ -43,7 +52,8 @@
       		<groupId>commons-logging</groupId>  
       		<artifactId>commons-logging</artifactId>  
       		<version>1.2</version>  
-    	</dependency>		
+    	</dependency>
+    		
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>

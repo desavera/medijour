@@ -1,0 +1,72 @@
+<html>  
+  <head>    
+    
+    <link id="mainStyle" href="assets/css/style.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>  
+    <title>MediJour</title>    
+    <script type="text/javascript">  
+            var app = angular.module("JournalsListingManager", []);  
+           
+            //Controller Part  
+            app.controller("JournalsListingController", function($scope, $http) {  
+           
+                 
+                $scope.publications = [];  
+
+		_fillPublicationsData();
+
+                $scope.update = function(journals) {
+
+			$scope.selectedPublications.push(journals);
+			
+                };  
+   
+                function _fillPublicationsData() {  
+
+			$http({
+			    method: 'GET',
+			    url: '/listing',
+			    headers: {
+                            'Accept': 'application/json' 
+                            }
+  			  }).then(function successCallback(response) {  
+
+			angular.forEach(response.data.content, function(journals) {
+
+                        	$scope.publications.push(journals);
+			});
+
+                    }, function errorCallback(response) {  
+                        console.log(response.statusText);  
+                    });  
+                }  
+
+		//
+		// PRIVATE METHODS
+		//
+                function _success(response) {  
+                }  
+           
+                function _error(response) {  
+                    console.log(response.statusText);  
+                }  
+           
+            });  
+
+        </script>  
+    </head>  
+    <body ng-app="JournalsListingManager" ng-controller="JournalsListingController">  
+         <h1>  
+           MediJour - Medical Journals   
+        </h1>   
+        <table>  
+            <tr>                  
+                <th>Header</th>  
+            </tr>  
+   
+           <tr ng-repeat="journals in publications">  
+    		<td>{{ journals.header }}</td>  
+           </tr>  
+        </table>  
+  </body>  
+</html> 

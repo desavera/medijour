@@ -30,23 +30,24 @@ public class MngController {
 	final Logger logger = Logger.getLogger(MngController.class); 
 
     
-    @RequestMapping(value="/sub/{Content_id}", method=RequestMethod.PUT)
-    public Journals updateContent(@RequestBody Journals Content) {    	
-    	Journals entity = journalsRepo.findById(Content.getId());
+    @RequestMapping(value="/mng/", method=RequestMethod.POST,
+                              consumes = {MediaType.APPLICATION_JSON_VALUE},
+                                produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public List<Integer> updateJournalsAvailability(@RequestBody List<Integer> idList) {    	
     	
-    	entity.update(Content);
-    		
-    	
-        return entity;
-    }       
-    
-    
-    @RequestMapping("sub")
-    public Page<Journals> findAllContents(
-    		final @RequestParam(defaultValue = "0", required = false) int page,
-     	    final @RequestParam(defaultValue = "10", required = false) int pageSize) {
-    	Pageable pager = new PageRequest(page, pageSize);
-    	Page<Journals> entities = journalsRepo.findAll(pager);
-        return entities;
-    }
+    	for (Integer id : idList) {
+
+
+		logger.debug("Updating availability for journals id : " + id + '\n');
+        	Journals entity = journalsRepo.findById(id);
+        	
+        	// just change the availability flag
+        	entity.setAvailable(!entity.isAvailable());        	        
+        	journalsRepo.save(entity);
+
+    	}    	
+
+	return idList;
+    } 
 }

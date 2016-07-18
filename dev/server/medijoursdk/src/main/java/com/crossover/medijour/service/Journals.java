@@ -34,10 +34,10 @@ public class Journals implements Serializable {
 	// Data members
 	//
 	private Integer id;
-	private String dataPath;
-	private boolean available;
+	private String path;
+	private Boolean available;
 	private String header;
-	private Integer pubId;
+	private Integer pubid;
 
 	//
 	// Accessors/Mutators
@@ -52,22 +52,22 @@ public class Journals implements Serializable {
 		this.id = sch_id;
 	}
 	
-	@Column(name = "data_path")
-	public String getDataPath() {
-		return dataPath;
+	@Column(name = "path")
+	public String getPath() {
+		return path;
 	}
 
-	public void setDataPath(String dataPath) {
-		this.dataPath = dataPath;
+	public void setPath(String path) {
+		this.path = path;
 	}
 	
 
 	@Column(name = "available")
-	public boolean isAvailable() {
+	public Boolean isAvailable() {
 		return available;
 	}
 
-	public void setAvailable(boolean available) {
+	public void setAvailable(Boolean available) {
 		this.available = available;
 	}
 	
@@ -82,11 +82,11 @@ public class Journals implements Serializable {
 	
 	@Column(name = "pubid")	
 	public Integer getPubId() {
-		return pubId;
+		return pubid;
 	}
 
 	public void setPubId(Integer pubId) {
-		this.pubId = pubId;
+		this.pubid = pubId;
 	}
 
 	
@@ -117,10 +117,10 @@ public class Journals implements Serializable {
 
 		StringBuffer str = new StringBuffer();
 		str.append("Id : " + id + '\n');
-		str.append("dataPath : " + dataPath + '\n');
+		str.append("dataPath : " + path + '\n');
 		str.append("Available : " + available + '\n');
 		str.append("Header : " + header + '\n');
-		str.append("PubId : " + pubId + '\n');
+		str.append("PubId : " + pubid + '\n');
 
 		return str.toString();
 	}
@@ -129,10 +129,10 @@ public class Journals implements Serializable {
 
 		if (this.equals(journal)) {
 			
-			this.dataPath = journal.getDataPath().toString();
+			this.path = journal.getPath().toString();
 			this.available = journal.isAvailable();
 			this.header = journal.getHeader().toString();
-			this.pubId = journal.getPubId();
+			this.pubid = journal.getPubId();
 			
 		} else throw new IllegalArgumentException();
 			

@@ -18,11 +18,11 @@ import org.springframework.util.FileSystemUtils;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
-public class Application extends SpringBootServletInitializer {
+public class PublishingApplication extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(Application.class);
+		return application.sources(PublishingApplication.class);
 	}
 	
 	@Bean

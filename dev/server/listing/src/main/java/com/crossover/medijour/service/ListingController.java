@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.crossover.medijour.service.*;
 
 
 @RestController
@@ -30,32 +33,34 @@ public class ListingController {
 	final Logger logger = Logger.getLogger(ListingController.class); 
 
     
-    @RequestMapping(value="/listing" , method=RequestMethod.POST,
-		    		consumes = {MediaType.APPLICATION_JSON_VALUE},
-		    		produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Journals> findContentsByQueryParam(
+    @CrossOrigin
+    @RequestMapping(value="/listing" , method=RequestMethod.GET)		    		
+    public Page<Journals> findJournalsForPublicUsers(
     		final @RequestParam(defaultValue = "0", required = false) int page,
-     	    final @RequestParam(defaultValue = "10", required = false) int pageSize,
-     	    @RequestBody JournalsQuery query) {
+     	    final @RequestParam(defaultValue = "10", required = false) int pageSize) {
     	
-		logger.debug("Quering Contents for : " + '\n' + query);
+		logger.debug("Quering public users journals..." + '\n');
 
 		Pageable pager = new PageRequest(page, pageSize);
 
+		Page<Journals> matchList = journalsRepo.findAll(pager);			
 
-		//List<Content> matchList = journalsRepo.findByQueryParam(origin, destiny, query.getSeats(),queryDeparture,queryReturning,pager);			
-
-		List<Journals> matchList = new Vector();
 		return matchList;
 
     }    
     
-    @RequestMapping("/listing")
-    public Page<Journals> findAllContents(
+    @RequestMapping(value="/listing/secure" , method=RequestMethod.GET)
+    public Page<Journals> findJournalsForAuthUsers(
     		final @RequestParam(defaultValue = "0", required = false) int page,
-     	    final @RequestParam(defaultValue = "10", required = false) int pageSize) {
+    		final @RequestParam(defaultValue = "10", required = false) int pageSize) {
+
+    	logger.debug("Quering authenticated journals..." + '\n');
+
     	Pageable pager = new PageRequest(page, pageSize);
-    	Page<Journals> entities = journalsRepo.findAll(pager);
-        return entities;
-    }
+
+    	Page<Journals> matchList = journalsRepo.findAll(pager);			
+
+    	return matchList;
+
+    }              
 }
