@@ -12,5 +12,5 @@ cd dev/server/publishing
 mvn clean install tomcat7:run &
 cd -
 cd dev/server/listing
-mvn clean install tomcat7:run &
+mvn -Dmaven.test.skip=true clean install tomcat7:run &
 
