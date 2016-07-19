@@ -1,6 +1,5 @@
 # Create schemas
 
-DROP DATABASE medijourdb;
 CREATE DATABASE medijourdb;
 USE medijourdb;
 
