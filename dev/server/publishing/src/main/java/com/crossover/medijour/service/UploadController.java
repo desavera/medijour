@@ -42,7 +42,7 @@ public class UploadController {
 		this.resourceLoader = resourceLoader;
 	}
 
-/*	@RequestMapping(method = RequestMethod.GET, value = "/")
+	@RequestMapping(method = RequestMethod.GET, value = "/upload")
 	public String provideUploadInfo(Model model) throws IOException {
 
 		model.addAttribute("files", Files.walk(Paths.get(ROOT))
@@ -54,7 +54,7 @@ public class UploadController {
 		return "uploadForm";
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/{filename:.+}")
+	@RequestMapping(method = RequestMethod.GET, value = "/upload/{filename:.+}")
 	@ResponseBody
 	public ResponseEntity<?> getFile(@PathVariable String filename) {
 
@@ -64,8 +64,8 @@ public class UploadController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-*/
-	@RequestMapping(method = RequestMethod.POST, value = "/")
+
+	@RequestMapping(method = RequestMethod.POST, value = "/upload")
 	public String handleFileUpload(@RequestParam("file") MultipartFile file,
 								   RedirectAttributes redirectAttributes) {
 
@@ -77,17 +77,14 @@ public class UploadController {
 				/*
 				 * persists the upload registry to journals table
 				 */
-				/*Journals entity = new Journals();
+				Journals entity = new Journals();
 				entity.setAvailable(true);
 				entity.setPath(Paths.get(ROOT, file.getOriginalFilename()).toString());
 				entity.setHeader("blabalbal");
 				entity.setPubId(1);
 				
-				journalsRepo.save(entity);*/
+				journalsRepo.save(entity);
 				
-				/*
-				 * feedback to publisher
-				 */
 				redirectAttributes.addFlashAttribute("message",
 						"You successfully uploaded " + file.getOriginalFilename() + "!");
 			} catch (IOException|RuntimeException e) {
@@ -97,7 +94,7 @@ public class UploadController {
 			redirectAttributes.addFlashAttribute("message", "Failed to upload " + file.getOriginalFilename() + " because it was empty");
 		}
 
-		return "redirect:/";
+		return "redirect:/upload";
 	}
 
 }
