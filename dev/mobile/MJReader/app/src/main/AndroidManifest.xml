@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.crossover.mjreader">
 
+
+
+
+
     <uses-sdk android:minSdkVersion="23" />
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -19,6 +23,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:versionCode="1"
+        android:versionName="r1"
         android:theme="@style/AppTheme">
         <activity
             android:name="com.auth0.android.lock.LockActivity"

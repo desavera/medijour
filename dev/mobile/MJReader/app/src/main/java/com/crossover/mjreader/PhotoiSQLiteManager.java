@@ -44,9 +44,9 @@ public class PhotoiSQLiteManager extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        Log.w(PhotoiSQLiteManager.class.getName(),
-                "Upgrading database from version " + oldVersion + " to "
-                        + newVersion + ", which will destroy all old data");
+        //Log.w(PhotoiSQLiteManager.class.getName(),
+        //        "Upgrading database from version " + oldVersion + " to "
+        //                + newVersion + ", which will destroy all old data");
         db.execSQL("DROP TABLE IF EXISTS user");
         db.execSQL("DROP TABLE IF EXISTS JOURNALS");
         db.execSQL("DROP TABLE IF EXISTS payment_request_create");
