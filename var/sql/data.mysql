@@ -1,5 +1,5 @@
 USE medijourdb;
 
-insert into publisher values ("john","john@gmail.com",1234);
-insert into journals values ("article.pdf",1,"This is a first article",1);
+insert into publisher (name,email,provider_unique) values ("john","john@gmail.com",1234);
+insert into journals (data_path,available,header,pubid) values ("article.pdf",1,"This is a first article",1);
 
