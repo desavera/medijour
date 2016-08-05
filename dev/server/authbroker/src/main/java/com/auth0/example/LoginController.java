@@ -1,6 +1,7 @@
 package com.auth0.example;
 
 import com.auth0.web.Auth0Config;
+import com.auth0.web.Auth0User;
 import com.auth0.web.NonceUtils;
 import com.auth0.web.SessionUtils;
 import org.slf4j.Logger;
@@ -34,6 +35,10 @@ public class LoginController {
         detectError(model);
         // add Nonce to storage
         NonceUtils.addNonceToStorage(req);
+        
+        final Auth0User user = SessionUtils.getAuth0User(req);
+        model.put("user", user);
+        model.put("domain", auth0Config.getDomain());        
         model.put("clientId", auth0Config.getClientId());
         model.put("domain", auth0Config.getDomain());
         model.put("loginCallback", auth0Config.getLoginCallback());

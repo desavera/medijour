@@ -6,6 +6,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -36,6 +37,9 @@ public class UploadController {
 	@Autowired
     private JournalsRepository journalsRepo;
     
+
+	@Autowired
+    private PublisherRepository publisherRepo;
 
 	@Autowired
 	public UploadController(ResourceLoader resourceLoader) {
@@ -74,16 +78,25 @@ public class UploadController {
 				
 				Files.copy(file.getInputStream(), Paths.get(ROOT, file.getOriginalFilename()));
 				
-				/*
-				 * persists the upload registry to journals table
-				 */
-				Journals entity = new Journals();
-				entity.setAvailable(true);
-				entity.setPath(Paths.get(ROOT, file.getOriginalFilename()).toString());
-				entity.setHeader("blabalbal");
-				entity.setPubId(1);
+				String userId = (String) redirectAttributes.getFlashAttributes().get("userId");
+				if (userId != null) {
+					
+					/*
+					 * persists the upload registry to journals table
+					 */
+					Journals entity = new Journals();
+					entity.setAvailable(true);
+					entity.setPath(Paths.get(ROOT, file.getOriginalFilename()).toString());
+					entity.setHeader("blabalbal");
+									
+					Publisher publisher = publisherRepo.findByProvunq(userId);
+					
+					entity.setPublisher(publisher);
 				
-				journalsRepo.save(entity);
+					journalsRepo.save(entity);	
+				}
+				
+				
 				
 				redirectAttributes.addFlashAttribute("message",
 						"You successfully uploaded " + file.getOriginalFilename() + "!");

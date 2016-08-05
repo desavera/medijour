@@ -1,141 +1,114 @@
 package com.crossover.medijour.service;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
+import javax.persistence.*;
+import java.util.List;
 
-import org.apache.log4j.Logger;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
+/**
+ * The persistent class for the journals database table.
+ * 
+ */
 @Entity
-@Table(name = "journals")
+@Table(name="journals")
+@NamedQuery(name="Journals.findAll", query="SELECT j FROM Journals j")
 public class Journals implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-	private final static long serialVersionUID = 1L;
-
-	final Logger logger = Logger.getLogger(Journals.class);
-
-	//
-	// Data members
-	//
-	private Integer id;
-	private String path;
-	private Boolean available;
-	private String header;
-	private Integer pubid;
-
-	//
-	// Accessors/Mutators
-	//
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public Integer getId() {
-		return id;
+	private String id;
+
+	private byte available;
+
+	private String header;
+
+	private String path;
+
+	//bi-directional many-to-one association to Publisher
+	@ManyToOne
+	@JoinColumn(name="pubid")
+	private Publisher publisher;
+
+	//bi-directional many-to-one association to Subscription
+	@OneToMany(mappedBy="journal")
+	private List<Subscription> subscriptions;
+
+	public Journals() {
 	}
 
-	public void setId(Integer sch_id) {
-		this.id = sch_id;
-	}
-	
-	@Column(name = "path")
-	public String getPath() {
-		return path;
+	public String getId() {
+		return this.id;
 	}
 
-	public void setPath(String path) {
-		this.path = path;
-	}
-	
-
-	@Column(name = "available")
-	public Boolean isAvailable() {
-		return available;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public void setAvailable(Boolean available) {
+	public byte getAvailable() {
+		return this.available;
+	}
+
+	public void setAvailable(byte available) {
 		this.available = available;
 	}
-	
-	@Column(name = "header")
+
 	public String getHeader() {
-		return header;
+		return this.header;
 	}
 
 	public void setHeader(String header) {
 		this.header = header;
 	}
+
+	public String getPath() {
+		return this.path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public Publisher getPublisher() {
+		return this.publisher;
+	}
+
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
+	}
+
+	public List<Subscription> getSubscriptions() {
+		return this.subscriptions;
+	}
+
+	public void setSubscriptions(List<Subscription> subscriptions) {
+		this.subscriptions = subscriptions;
+	}
+
+	public Subscription addSubscription(Subscription subscription) {
+		getSubscriptions().add(subscription);
+		subscription.setJournal(this);
+
+		return subscription;
+	}
+
+	public Subscription removeSubscription(Subscription subscription) {
+		getSubscriptions().remove(subscription);
+		subscription.setJournal(null);
+
+		return subscription;
+	}
 	
-	@Column(name = "pubid")	
-	public Integer getPubId() {
-		return pubid;
+	public boolean isAvailable() {
+		
+		return (this.getAvailable() != 0);		
+		
 	}
 
-	public void setPubId(Integer pubId) {
-		this.pubid = pubId;
-	}
-
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Journals))
-			return false;
-		Journals other = (Journals) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
-
-
-	public String toString() {
-
-		StringBuffer str = new StringBuffer();
-		str.append("Id : " + id + '\n');
-		str.append("dataPath : " + path + '\n');
-		str.append("Available : " + available + '\n');
-		str.append("Header : " + header + '\n');
-		str.append("PubId : " + pubid + '\n');
-
-		return str.toString();
-	}
-
-	public void update(Journals journal) {
-
-		if (this.equals(journal)) {
-			
-			this.path = journal.getPath().toString();
-			this.available = journal.isAvailable();
-			this.header = journal.getHeader().toString();
-			this.pubid = journal.getPubId();
-			
-		} else throw new IllegalArgumentException();
-			
+	public void setAvailable(boolean b) {
+		
+		if (b) this.setAvailable((byte)1);
+		
+		else this.setAvailable((byte)0);
 		
 	}
 
