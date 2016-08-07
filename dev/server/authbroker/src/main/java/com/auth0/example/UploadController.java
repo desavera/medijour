@@ -1,4 +1,4 @@
-package com.crossover.medijour.service;
+package com.auth0.example;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -35,18 +35,11 @@ public class UploadController {
 	private final ResourceLoader resourceLoader;
 	
 	@Autowired
-    private JournalsRepository journalsRepo;
-    
-
-	@Autowired
-    private PublisherRepository publisherRepo;
-
-	@Autowired
 	public UploadController(ResourceLoader resourceLoader) {
 		this.resourceLoader = resourceLoader;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/upload")
+	@RequestMapping(method = RequestMethod.GET, value = "/portal/upload")
 	public String provideUploadInfo(Model model) throws IOException {
 
 		/*
@@ -72,7 +65,7 @@ public class UploadController {
 	}
 	*/
 
-	@RequestMapping(method = RequestMethod.POST, value = "/upload")
+	@RequestMapping(method = RequestMethod.POST, value = "/portal/upload")
 	public String handleFileUpload(@RequestParam("file") MultipartFile file,
 								   RedirectAttributes redirectAttributes) {
 
@@ -80,25 +73,6 @@ public class UploadController {
 			try {
 				
 				Files.copy(file.getInputStream(), Paths.get(ROOT, file.getOriginalFilename()));
-				
-				String userId = (String) redirectAttributes.getFlashAttributes().get("userId");
-				if (userId != null) {
-					
-					/*
-					 * persists the upload registry to journals table
-					 */
-					Journals entity = new Journals();
-					entity.setAvailable(true);
-					entity.setPath(Paths.get(ROOT, file.getOriginalFilename()).toString());
-					entity.setHeader("blabalbal");
-									
-					Publisher publisher = publisherRepo.findByProvunq(userId);
-					
-					entity.setPublisher(publisher);
-				
-					journalsRepo.save(entity);	
-				}
-				
 				
 				
 				redirectAttributes.addFlashAttribute("message",
