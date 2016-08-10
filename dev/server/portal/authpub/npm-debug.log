@@ -1,0 +1,117 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'install', '-g', 'serve' ]
+2 info using npm@1.3.10
+3 info using node@v0.10.25
+4 verbose cache add [ 'serve', null ]
+5 verbose cache add name=undefined spec="serve" args=["serve",null]
+6 verbose parsed url { protocol: null,
+6 verbose parsed url   slashes: null,
+6 verbose parsed url   auth: null,
+6 verbose parsed url   host: null,
+6 verbose parsed url   port: null,
+6 verbose parsed url   hostname: null,
+6 verbose parsed url   hash: null,
+6 verbose parsed url   search: null,
+6 verbose parsed url   query: null,
+6 verbose parsed url   pathname: 'serve',
+6 verbose parsed url   path: 'serve',
+6 verbose parsed url   href: 'serve' }
+7 silly lockFile b88fb872-serve serve
+8 verbose lock serve /home/mvera/.npm/b88fb872-serve.lock
+9 silly lockFile b88fb872-serve serve
+10 silly lockFile b88fb872-serve serve
+11 verbose addNamed [ 'serve', '' ]
+12 verbose addNamed [ null, '*' ]
+13 silly lockFile f5f9b276-serve serve@
+14 verbose lock serve@ /home/mvera/.npm/f5f9b276-serve.lock
+15 silly addNameRange { name: 'serve', range: '*', hasData: false }
+16 verbose url raw serve
+17 verbose url resolving [ 'https://registry.npmjs.org/', './serve' ]
+18 verbose url resolved https://registry.npmjs.org/serve
+19 info trying registry request attempt 1 at 00:26:50
+20 verbose etag "20MFQPPQZIF4VTNVPWSYQ7ZIY"
+21 http GET https://registry.npmjs.org/serve
+22 http 304 https://registry.npmjs.org/serve
+23 silly registry.get cb [ 304,
+23 silly registry.get   { date: 'Sun, 07 Aug 2016 03:26:51 GMT',
+23 silly registry.get     via: '1.1 varnish',
+23 silly registry.get     'cache-control': 'max-age=300',
+23 silly registry.get     etag: '"20MFQPPQZIF4VTNVPWSYQ7ZIY"',
+23 silly registry.get     age: '0',
+23 silly registry.get     connection: 'keep-alive',
+23 silly registry.get     'x-served-by': 'cache-jfk8148-JFK',
+23 silly registry.get     'x-cache': 'MISS',
+23 silly registry.get     'x-cache-hits': '0',
+23 silly registry.get     'x-timer': 'S1470540411.422934,VS0,VE100',
+23 silly registry.get     vary: 'Accept-Encoding' } ]
+24 verbose etag serve from cache
+25 silly addNameRange number 2 { name: 'serve', range: '*', hasData: true }
+26 silly addNameRange versions [ 'serve',
+26 silly addNameRange   [ '0.0.1',
+26 silly addNameRange     '0.0.2',
+26 silly addNameRange     '0.0.3',
+26 silly addNameRange     '0.0.4',
+26 silly addNameRange     '0.0.5',
+26 silly addNameRange     '1.0.0',
+26 silly addNameRange     '1.0.1',
+26 silly addNameRange     '1.0.2',
+26 silly addNameRange     '1.0.3',
+26 silly addNameRange     '1.1.0',
+26 silly addNameRange     '1.2.0',
+26 silly addNameRange     '1.3.0',
+26 silly addNameRange     '1.4.0' ] ]
+27 verbose addNamed [ 'serve', '1.4.0' ]
+28 verbose addNamed [ '1.4.0', '1.4.0' ]
+29 silly lockFile 41214fd0-serve-1-4-0 serve@1.4.0
+30 verbose lock serve@1.4.0 /home/mvera/.npm/41214fd0-serve-1-4-0.lock
+31 silly lockFile 41214fd0-serve-1-4-0 serve@1.4.0
+32 silly lockFile 41214fd0-serve-1-4-0 serve@1.4.0
+33 silly lockFile f5f9b276-serve serve@
+34 silly lockFile f5f9b276-serve serve@
+35 silly resolved [ { name: 'serve',
+35 silly resolved     version: '1.4.0',
+35 silly resolved     description: 'Simple command-line file / directory server built with connect',
+35 silly resolved     keywords: [ 'static', 'server', 'connect' ],
+35 silly resolved     author: { name: 'TJ Holowaychuk', email: 'tj@vision-media.ca' },
+35 silly resolved     preferGlobal: true,
+35 silly resolved     homepage: 'https://github.com/visionmedia/serve',
+35 silly resolved     repository: { type: 'git', url: 'https://github.com/visionmedia/serve.git' },
+35 silly resolved     dependencies:
+35 silly resolved      { connect: '2.3.x',
+35 silly resolved        stylus: '*',
+35 silly resolved        jade: '*',
+35 silly resolved        'less-middleware': '*',
+35 silly resolved        commander: '0.6.1' },
+35 silly resolved     bin: { serve: './bin/serve' },
+35 silly resolved     readme: '\n# serve\n\n  Simple 5 minute command-line file / directory server built with connect, inspired by nodejitsu\'s [http-server](https://github.com/nodejitsu/http-server) to show off the simplicity and flexibility of connect as a modular server.\n\n## Installation\n\n    $ npm install -g serve\n\n## Usage\n\n```\n\nUsage: serve [options] [dir]\n\nOptions:\n\n  -v, --version        output the version number\n  -F, --format <fmt>   specify the log format string\n  -p, --port <port>    specify the port [3000]\n  -f, --favicon <path> serve the given favicon\n  -H, --hidden         enable hidden file serving\n  -C, --cors           allows cross origin access serving\n  -S, --no-stylus      disable stylus rendering\n  -J, --no-jade        disable jade rendering\n      --no-less        disable less css rendering\n  -I, --no-icons       disable icons\n  -L, --no-logs        disable request logging\n  -D, --no-dirs        disable directory serving\n      --compress       gzip or deflate the response\n      --exec <cmd>     execute command on each request\n  -h, --help           output usage information\n```\n\n## Examples\n\n HTTP Accept support built into `connect.directory()`:\n \n     $ curl http://local:3000/ -H "Accept: text/plain"\n     bin\n     History.md\n     node_modules\n     package.json\n     Readme.md\n\n  Requesting a file:\n\n    $ curl http://local:3000/Readme.md\n\n     # serve\n     ...\n\n  Requesting JSON for the directory listing:\n\n    $ curl http://local:3000/ -H "Accept: application/json"\n    ["bin","History.md","node_modules","package.json","Readme.md"]\n\n Directory listing served by connect\'s `connect.directory()` middleware.\n\n  ![directory listings](http://f.cl.ly/items/100M2C3o0p2u3A0q1o3H/Screenshot.png)\n\n## License \n\n(The MIT License)\n\nCopyright (c) 2011 TJ Holowaychuk &lt;tj@vision-media.ca&gt;\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n\'Software\'), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \'AS IS\', WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.\nIN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY\nCLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,\nTORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE\nSOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n',
+35 silly resolved     readmeFilename: 'Readme.md',
+35 silly resolved     bugs: { url: 'https://github.com/visionmedia/serve/issues' },
+35 silly resolved     _id: 'serve@1.4.0',
+35 silly resolved     _from: 'serve@' } ]
+36 info install serve@1.4.0 into /usr/local/lib
+37 info installOne serve@1.4.0
+38 info /usr/local/lib/node_modules/serve unbuild
+39 info preuninstall serve@1.4.0
+40 info uninstall serve@1.4.0
+41 verbose true,/usr/local/lib/node_modules,/usr/local/lib/node_modules unbuild serve@1.4.0
+42 verbose /usr/local/bin,[object Object] binRoot
+43 info /usr/local/lib/node_modules/serve unbuild
+44 info preuninstall serve@1.4.0
+45 info uninstall serve@1.4.0
+46 verbose true,/usr/local/lib/node_modules,/usr/local/lib/node_modules unbuild serve@1.4.0
+47 verbose /usr/local/bin,[object Object] binRoot
+48 error error rolling back Error: EACCES, unlink '/usr/local/bin/serve'
+48 error error rolling back  serve@1.4.0 { [Error: EACCES, unlink '/usr/local/bin/serve'] errno: 3, code: 'EACCES', path: '/usr/local/bin/serve' }
+49 error Error: EACCES, unlink '/usr/local/bin/serve'
+49 error  { [Error: EACCES, unlink '/usr/local/bin/serve'] errno: 3, code: 'EACCES', path: '/usr/local/bin/serve' }
+50 error Please try running this command again as root/Administrator.
+51 error System Linux 3.13.0-48-generic
+52 error command "/usr/bin/nodejs" "/usr/bin/npm" "install" "-g" "serve"
+53 error cwd /home/mvera/oficina/tmp/auth0-spring-security-api-client-samples/auth0-spring-security-api-angular-client
+54 error node -v v0.10.25
+55 error npm -v 1.3.10
+56 error path /usr/local/bin/serve
+57 error code EACCES
+58 error errno 3
+59 error stack Error: EACCES, unlink '/usr/local/bin/serve'
+60 verbose exit [ 3, true ]

@@ -8,16 +8,15 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.auth0.example", "com.auth0.web", "com.auth0.spring.security.mvc"})
+@ComponentScan(basePackages = {"com.auth0.example", "com.auth0.spring.security.api"})
 @EnableAutoConfiguration
 @PropertySources({
-        @PropertySource("classpath:application.properties"),
-        @PropertySource("classpath:auth0.properties")
+		@PropertySource("classpath:application.properties"),
+		@PropertySource("classpath:auth0.properties")
 })
 public class App {
 
-	public static void main(final String[] args) throws Exception {
+	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);
 	}
-
 }

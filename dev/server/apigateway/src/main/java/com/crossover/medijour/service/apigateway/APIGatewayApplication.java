@@ -26,7 +26,7 @@ public class APIGatewayApplication  extends WebSecurityConfigurerAdapter {
 	    http
 	      .antMatcher("/**")
 	      .authorizeRequests()	      
-	      .antMatchers("/","/callback","/login","/webjars/**","/assets/**")
+	      .antMatchers("/","/authpub/**","/webjars/**","/assets/**")
 	        .permitAll()
 		      .anyRequest()
 		        .authenticated();

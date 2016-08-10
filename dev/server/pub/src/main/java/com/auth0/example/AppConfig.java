@@ -1,10 +1,11 @@
 package com.auth0.example;
 
-import com.auth0.spring.security.mvc.Auth0SecurityConfig;
-import org.springframework.beans.factory.annotation.Value;
+import com.auth0.spring.security.api.Auth0SecurityConfig;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,28 +17,33 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class AppConfig extends Auth0SecurityConfig {
 
-    @Value(value = "${auth0.customLogin}")
-    protected boolean customLogin;
+    /**
+     * Provides Auth0 API access
+     */
+    @Bean
+    public Auth0Client auth0Client() {
+        return new Auth0Client(clientId, issuer);
+    }
 
-    @Value(value = "${auth0.connection}")
-    protected String connection;
-
-
+    /**
+     *  Our API Configuration - for Profile CRUD operations
+     *
+     *  Here we choose not to bother using the `auth0.securedRoute` property configuration
+     *  and instead ensure any unlisted endpoint in our config is secured by default
+     */
     @Override
     protected void authorizeRequests(final HttpSecurity http) throws Exception {
+        // include some Spring Boot Actuator endpoints to check metrics
+        // add others or remove as you choose, this is just a sample config to illustrate
+        // most specific rules must come - order is important (see Spring Security docs)
         http.authorizeRequests()
-                .antMatchers("/icons/**","/css/**", "/fonts/**", "/js/**", "/login").permitAll()
-                .antMatchers("/portal/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-                .antMatchers(securedRoute).authenticated();
-        //.and().rememberMe();
-    }
-
-    public boolean isCustomLogin() {
-        return customLogin;
-    }
-
-    public String getConnection() {
-        return connection;
-    }
-
+                .antMatchers("/ping", "/auth/login/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/profiles").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/v1/profiles/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/v1/profiles/**").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/v1/profiles/**").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/v1/profiles/**").hasAnyAuthority("ROLE_ADMIN")
+                .anyRequest().authenticated();
+    }      
+    
 }
