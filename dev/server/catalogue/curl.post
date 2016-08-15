@@ -1,0 +1,4 @@
+curl -X POST -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sInVzZXJfaWQiOiJsaW5rZWRpbnw1eDl3VEJ3NWJNIiwibmFtZSI6Ik3DoXJpbyBkZSBTw6EgVmVyYSIsIm5pY2tuYW1lIjoiZGVzYXZlcmEiLCJlbWFpbCI6ImRlc2F2ZXJhQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaWN0dXJlIjoiaHR0cHM6Ly9tZWRpYS5saWNkbi5jb20vbXByL21wcngvMF81S0Nnc210cnhGalIxOVJDYnQtbXNEMTIwR1JzbDlzQ0ZCbkdzRDh1aEZmd210U0dkbnRscVNxQ0F1VWstQVVta1A4X3ZFT19lVTlWIiwiaXNzIjoiaHR0cHM6Ly9kZXNhdmVyYS5hdXRoMC5jb20vIiwic3ViIjoibGlua2VkaW58NXg5d1RCdzViTSIsImF1ZCI6IlVxZWdDbmR4R1dWOFNqNXI0NGxaTmxUSnVUSndNWENPIiwiZXhwIjoxNDcwODI3Nzk0LCJpYXQiOjE0NzA3OTE3OTR9.eOc4vp8fNG6IJ8sUxQ_ReMKVugM1pngIT8LzZdlVJ_I" -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{
+    "name": "Medijour Admin",
+    "email": "medijour@gmail.com"
+ }' "http://localhost:3001/api/v1/profiles"

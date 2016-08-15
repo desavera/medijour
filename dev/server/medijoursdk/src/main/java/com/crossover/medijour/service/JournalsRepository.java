@@ -14,7 +14,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface JournalsRepository extends JpaRepository<Journals, Integer> {
-	Journals findById(Integer id);
-	//Page<Journals> findAll(Pageable pager);		              
-	List<Journals> findAll();
+
+	Page<Journals> findByPublisher(Publisher publisher, Pageable pager);
+
+	
 }

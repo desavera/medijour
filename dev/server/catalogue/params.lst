@@ -1,0 +1,9 @@
+scope:openid
+response_type:token
+connection:desaveraauth0db
+username:medijour@gmail.com
+password:medijour123
+popup:false
+sso:false
+client_id:UqegCndxGWV8Sj5r44lZNlTJuTJwMXCO
+tenant:desavera

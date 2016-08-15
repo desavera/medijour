@@ -16,6 +16,5 @@ import org.springframework.stereotype.Repository;
 public interface PublisherRepository extends JpaRepository<Publisher, Integer> {
 	Publisher findById(Integer id);	
 	Publisher findByProvunq(String provunq);
-	//Page<Journals> findAll(Pageable pager);		              
 	List<Publisher> findAll();
 }

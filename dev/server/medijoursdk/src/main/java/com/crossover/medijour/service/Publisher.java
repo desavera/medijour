@@ -2,6 +2,9 @@ package com.crossover.medijour.service;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.List;
 
 
@@ -26,6 +29,7 @@ public class Publisher implements Serializable {
 
 	//bi-directional many-to-one association to Journal
 	@OneToMany(mappedBy="publisher")
+	@JsonManagedReference
 	private List<Journals> journals;
 
 	public Publisher() {

@@ -46,7 +46,8 @@ angular.module('app', [
       console.log("Error");
     });
 
-    authProvider.on('authenticated', function () {
+    authProvider.on('authenticated', function ($location) {
+      $location.path('/home');
       console.log("Authenticated");
     });
 

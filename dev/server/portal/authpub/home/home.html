@@ -8,7 +8,26 @@
     </nav>
     <h3 class="text-muted">Medijour.com</h3>
   </div>
-
+        <form ng-submit="submitChanges()">  
+        <table>  
+            <tr>                  
+                <th>Header</th>  
+                <th>Available</th>  
+                <th>Update Availability</th>  
+            </tr>  
+   
+           <tr ng-repeat="journals in journalsList">  
+                 
+    		<td>{{ journals.header }}</td>  
+    		<td>{{ journals.available }}</td>  
+                   
+		<td><input type="checkbox" ng-model="checkboxModel.value2" ng-click="update(journals)"></td>
+           </tr>  
+	    <tr>
+                <td colspan="2"><input type="submit" value="Submit Changes" class="blue-button" /></td>
+           </tr>
+        </table>  
+	</form>
   <footer class="footer">
     <p> &copy; 2016 Medijour Inc</p>
   </footer>
